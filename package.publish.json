@@ -1,0 +1,10 @@
+{
+    "name": "people-contacts-application",
+    "version": "0.1.0",
+    "description": "people-contacts-application application package",
+    "license": "SEE LICENSE IN LICENSE",
+    "author": "Gabriel Bruno Meinchein",
+    "scripts": {
+    }
+  }
+  
