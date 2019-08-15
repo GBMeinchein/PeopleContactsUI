@@ -1,259 +1,180 @@
 <div class="container">
 
-<div *ngIf="!showNew">
-  <div class="text-right">
-    <button type="submit" class="btn btn-primary" (click)="onNew()">
-      New Person
-    </button>
-  </div>
-  <br>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>#</th>
-
-        <th>Nome</th>
-
-        <th></th>
-
-        <th></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let registration of registrations; let i = index">
-        <th scope="row">{{ registration.id }}</th>
-
-        <td>{{ registration.nome }}</td>
-
-        <td>
-          <button type="button" class="btn btn-info" (click)="onEdit(i)">
-            Edit
-          </button>
-        </td>
-
-        <td>
-          <button type="button" class="btn btn-danger" (click)="onDelete(i)">
-            Delete
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- <div class="text-right">
-    <button type="submit" class="btn btn-primary" (click)="onNew()">
-      New
-    </button>
-  </div> -->
-</div>
-<div class="regentry" *ngIf="showNew">
-  <form (ngSubmit)="onSave()">
-    <div class="form-group row">
-      <label for="firstname-input" class="col-2 col-form-label"
-        >Nome</label
-      >
-
-      <div class="col-10">
-        <input
-          class="form-control"
-          type="text"
-          [(ngModel)]="regModel.nome"
-          name="firstName"
-        />
-      </div>
+  <div *ngIf="!showNew">
+    <div class="text-right">
+      <button type="submit" class="btn btn-primary" (click)="onNew()">
+        New Person
+      </button>
     </div>
-    <div>
-      <button type="button" class="btn btn-primary" (click)="onNewContact()">
+    <br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+
+          <th>Nome</th>
+
+          <th></th>
+
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let registration of registrations; let i = index">
+          <th scope="row">{{ registration.id }}</th>
+
+          <td>{{ registration.nome }}</td>
+
+          <td>
+            <button type="button" class="btn btn-info" (click)="onEdit(i)">
+              Edit
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="btn btn-danger" (click)="onDelete(i)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="regentry" *ngIf="showNew">
+    <form (ngSubmit)="onSave()">
+      <div class="form-group row">
+        <label for="firstname-input" class="col-2 col-form-label">Nome</label>
+
+        <div class="col-10">
+          <input class="form-control" type="text" [(ngModel)]="regModel.nome" name="firstName" />
+        </div>
+      </div>
+      <div>
+        <button type="button" class="btn btn-primary" (click)="onNewContact()">
           New Contact
         </button>
         <br>
-        
-      <div class="col-10" *ngIf="showNewContact">
-          <label for="firstname-input" class="col-2 col-form-label"
-          >Type Contact</label>
-          <input
-            class="form-control"
-            type="text"
-            [(ngModel)]="contactModel.tipoContato"
-            name="tipoContato"
-          />
-          <label for="firstname-input" class="col-2 col-form-label"
-          >Adress</label
-        >
-          <input
-          class="form-control"
-          type="text"
-          [(ngModel)]="contactModel.enderecoContato"
-          name="enderecoContato"
-        />
+
+        <div class="col-10" *ngIf="showNewContact">
+          <label for="firstname-input" class="col-2 col-form-label">Type Contact</label>
+          <input class="form-control" type="text" [(ngModel)]="contactModel.tipoContato" name="tipoContato" />
+          <label for="firstname-input" class="col-2 col-form-label">Adress</label>
+          <input class="form-control" type="text" [(ngModel)]="contactModel.enderecoContato" name="enderecoContato" />
+          <br>
+          <button type="button" class="btn btn-success" (click)="onSaveContact()"> Save Contact</button>
+
+          <button type="button" class="btn btn-primary" (click)="onCancelContact()">Cancel</button>
+
+        </div>
         <br>
-        <button type="button" class="btn btn-success" (click)="onSaveContact()"> Save Contact</button>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
 
-        <button type="button" class="btn btn-primary" (click)="onCancelContact()">Cancel</button>
-        
-    </div>
-    <br>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>#</th>
-  
-            <th>Tipo Contato</th>
+              <th>Tipo Contato</th>
 
-            <th>Endereco</th>
-  
-            <th></th>
-  
-            <th></th>
-          </tr>
-        </thead>      
+              <th>Endereço</th>
 
-        <tbody>
-          <tr *ngFor="let contact of regModel.contacts; let i = index">
-            <th scope="row">{{ contact.id }}</th>
+              <th></th>
 
-            <td>{{ contact.tipoContato }}</td>
-            <td>{{ contact.enderecoContato }}</td>
+              <th></th>
+            </tr>
+          </thead>
 
-            <td>
-              <button type="button" class="btn btn-danger" (click)="onDeleteContact(i)">
-                Delete
-              </button>
-            </td>
-          </tr>
-        </tbody>      
-      </table>
-    </div>
-<!--
-    <div class="form-group row">
-      <label for="lastname-input" class="col-2 col-form-label"
-        >Last Name</label
-      >
+          <tbody>
+            <tr *ngFor="let contact of regModel.contacts; let i = index">
+              <th scope="row">{{ contact.id }}</th>
 
-      <div class="col-10">
-        <input
-          class="form-control"
-          type="text"
-          [(ngModel)]="regModel.lastName"
-          name="lastName"
-        />
+              <td>{{ contact.tipoContato }}</td>
+              <td>{{ contact.enderecoContato }}</td>
+
+              <td>
+                <button type="button" class="btn btn-danger" (click)="onDeleteContact(i)">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </div>
 
-    <div class="form-group row">
-      <label for="dob-input" class="col-2 col-form-label">DOB</label>
+      <div class="form-group row">
+        <label for="lastname-input" class="col-2 col-form-label">Last Name</label>
 
-      <div class="col-3 input-group">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="yyyy-mm-dd"
-          name="dob"
-          [(ngModel)]="regModel.dob"
-          ngbDatepicker
-          #dob="ngbDatepicker"
-        />
-
-        <button
-          class="input-group-addon"
-          (click)="dob.toggle()"
-          type="button"
-        >
-          <img
-            src="assets/img/calendar-icon.svg"
-            style="width: 1.2rem; height: 1rem; cursor: pointer;"
-          />
-        </button>
+        <div class="col-10">
+          <input class="form-control" type="text" [(ngModel)]="regModel.lastName" name="lastName" />
+        </div>
       </div>
-    </div>
 
-    <div class="form-group row">
-      <label for="dob-input" class="col-2 col-form-label">DOJ</label>
+      <div class="form-group row">
+        <label for="dob-input" class="col-2 col-form-label">DOB</label>
 
-      <div class="col-3 input-group">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="yyyy-mm-dd"
-          name="doj"
-          [(ngModel)]="regModel.doj"
-          ngbDatepicker
-          #doj="ngbDatepicker"
-        />
+        <div class="col-3 input-group">
+          <input type="text" class="form-control" placeholder="yyyy-mm-dd" name="dob" [(ngModel)]="regModel.dob"
+            ngbDatepicker #dob="ngbDatepicker" />
 
-        <button
-          class="input-group-addon"
-          (click)="doj.toggle()"
-          type="button"
-        >
-          <img
-            src="assets/img/calendar-icon.svg"
-            style="width: 1.2rem; height: 1rem; cursor: pointer;"
-          />
-        </button>
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="example-email-input" class="col-2 col-form-label">Email</label>
-
-      <div class="col-10">
-        <input
-          class="form-control"
-          type="email"
-          [(ngModel)]="regModel.email"
-          name="email"/>
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="example-password-input" class="col-2 col-form-label"
-        >Password</label>
-
-      <div class="col-10">
-        <input
-          class="form-control"
-          type="password"
-          [(ngModel)]="regModel.password"
-          name="password"/>
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="city-input" class="col-2 col-form-label">Company</label>
-
-      <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
-        <button
-          type="button"
-          class="btn btn-outline-primary"
-          id="dropdownManual"
-          name="company"
-          ngbDropdownToggle
-        >
-          {{ regModel.company }}
-        </button>
-
-        <div ngbDropdownMenu aria-labelledby="dropdownManual">
-          <button
-            type="button"
-            class="dropdown-item"
-            *ngFor="let company of companies"
-            (click)="onChangeCompany(company)"
-          >
-            {{ company }}
+          <button class="input-group-addon" (click)="dob.toggle()" type="button">
+            <img src="assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
           </button>
         </div>
       </div>
-    </div> -->
 
-    <button type="submit" class="btn btn-success">{{ submitType }}</button>
+      <div class="form-group row">
+        <label for="dob-input" class="col-2 col-form-label">DOJ</label>
 
-    <button type="submit" class="btn btn-primary" (click)="onCancel()">
-      Cancel
-    </button>
-  </form>
-</div>
+        <div class="col-3 input-group">
+          <input type="text" class="form-control" placeholder="yyyy-mm-dd" name="doj" [(ngModel)]="regModel.doj"
+            ngbDatepicker #doj="ngbDatepicker" />
 
-<br />
+          <button class="input-group-addon" (click)="doj.toggle()" type="button">
+            <img src="assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-email-input" class="col-2 col-form-label">Email</label>
+
+        <div class="col-10">
+          <input class="form-control" type="email" [(ngModel)]="regModel.email" name="email" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-password-input" class="col-2 col-form-label">Password</label>
+
+        <div class="col-10">
+          <input class="form-control" type="password" [(ngModel)]="regModel.password" name="password" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="city-input" class="col-2 col-form-label">Company</label>
+
+        <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
+          <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="company" ngbDropdownToggle>
+            {{ regModel.company }}
+          </button>
+
+          <div ngbDropdownMenu aria-labelledby="dropdownManual">
+            <button type="button" class="dropdown-item" *ngFor="let company of companies"
+              (click)="onChangeCompany(company)">
+              {{ company }}
+            </button>
+          </div>
+        </div>
+      </div> -->
+
+      <button type="submit" class="btn btn-success">{{ submitType }}</button>
+
+      <button type="submit" class="btn btn-primary" (click)="onCancel()">
+        Cancel
+      </button>
+    </form>
+  </div>
+
+  <br />
 </div>

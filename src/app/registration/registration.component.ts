@@ -11,101 +11,97 @@ import { Contact } from '../models/contact';
   providers: [Service]
 })
 export class RegistrationComponent implements OnInit {
-    registrations: Registration[];
-    contactModel: Contact;
-    regModel: Registration;
-    showNew: Boolean = false;
-    showNewContact: Boolean = false;
-    submitType: string = "Save";
-    submitTypeContact: string = "Save";
-    selectedRow: number;
-    selectedRowContact: number;
-    companies: string[] = ["Company A", "Company B", "Company C", "Company D", "Company E"];
+  registrations: Registration[];
+  contactModel: Contact;
+  regModel: Registration;
+  showNew: Boolean = false;
+  showNewContact: Boolean = false;
+  submitType: string = "Save";
+  submitTypeContact: string = "Save";
+  selectedRow: number;
+  selectedRowContact: number;
   constructor(private service: Service) {
     this.getPeople();
   }
 
-getPeople(): void {
-  this.service.getPeople()
-    .subscribe(people => (this.registrations = people));
-}
-
-onNew() {
-  this.regModel = new Registration();
-  this.submitType = 'Save';
-  this.showNew = true;
+  getPeople(): void {
+    this.service.getPeople()
+      .subscribe(people => (this.registrations = people));
   }
 
-onNewContact() {
-  this.contactModel = new Contact();
-  this.submitTypeContact = 'Save';
-  this.showNewContact = true;
+  onNew() {
+    this.regModel = new Registration();
+    this.submitType = 'Save';
+    this.showNew = true;
   }
 
-onSaveContact() {
-  if (this.submitTypeContact === 'Save') {
-    this.regModel.contacts.push(this.contactModel);
-  } else {
-  this.regModel.contacts[this.selectedRowContact] = this.contactModel;
-}
-  this.showNewContact = false;  
-}
+  onNewContact() {
+    this.contactModel = new Contact();
+    this.submitTypeContact = 'Save';
+    this.showNewContact = true;
+  }
 
-onSave() {
-  if (this.submitType === 'Save') {
+  onSaveContact() {
+    if (this.submitTypeContact === 'Save') {
+      this.regModel.contacts.push(this.contactModel);
+    } else {
+      this.regModel.contacts[this.selectedRowContact] = this.contactModel;
+    }
+    this.showNewContact = false;
+  }
+
+  onSave() {
+    if (this.submitType === 'Save') {
+      this.service
+        .addPerson(this.regModel)
+        .subscribe(person => this.registrations.push(person));
+    } else {
+
+      this.service
+        .updatePerson(this.regModel)
+        .subscribe(person => this.registrations[this.selectedRow] = person);
+    }
+
+    this.getPeople();
+    this.showNew = false;
+
+  }
+
+  onEdit(index: number) {
+    this.selectedRow = index;
+    this.regModel = new Registration();
+
+    this.regModel = Object.assign({}, this.registrations[this.selectedRow]);
+
+    this.service.getPerson(this.regModel.id)
+      .subscribe(people => (this.regModel = people));
+
+    this.submitType = 'Update';
+    this.showNew = true;
+
+  }
+
+  onDelete(index: number) {
     this.service
-      .addPerson(this.regModel)
-      .subscribe(person => this.registrations.push(person));
-  } else {
-  
-  this.service
-  .updatePerson(this.regModel)
-  .subscribe(person => this.registrations[this.selectedRow] = person);
-}
-this.getPeople();
-  this.showNew = false;
-  
-}
+      .deletePerson(this.registrations[index].id)
+      .subscribe();
+    this.registrations.splice(index);
+  }
 
-onEdit(index: number) {
-  this.selectedRow = index;
-  this.regModel = new Registration();
-  // Retrieve selected 
-  this.regModel = Object.assign({}, this.registrations[this.selectedRow]);
+  onDeleteContact(index: number) {
+    this.regModel.contacts.splice(index);
+  }
 
-  this.service.getPerson(this.regModel.id)
-  .subscribe(people => (this.regModel = people));
+  onCancel() {
+    this.showNew = false;
+    this.showNewContact = false;
+  }
 
-  this.submitType = 'Update';
-  this.showNew = true;
-  
-}
+  onCancelContact() {
+    this.showNewContact = false;
+  }
 
-onDelete(index: number) {
-  this.service
-  .deletePerson(this.registrations[index].id)
-  .subscribe();
-  this.registrations.splice(index);
-}
-
-onDeleteContact(index: number) {
-  this.regModel.contacts.splice(index);
-}
-
-onCancel() {
-  this.showNew = false;
-  this.showNewContact = false;
-}
-
-onCancelContact(){
-  this.showNewContact = false;
-}
-
-onChangeCompany(company: string) {
-  //this.regModel.company = company;
-}
   ngOnInit() {
-    
   }
 }
 
