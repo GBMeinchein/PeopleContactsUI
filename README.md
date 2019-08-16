@@ -1,3 +1,3 @@
 # List of contacts - frontend
 
-REST API which store people and their contacts
+WEB APP explore a PeopleContacts API
