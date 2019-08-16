@@ -1,3 +1,3 @@
 # List of contacts - frontend
 
-WEB APP explore a PeopleContacts API
+WEB APP that explore a PeopleContacts API
